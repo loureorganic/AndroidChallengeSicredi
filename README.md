@@ -8,8 +8,11 @@ The app is not completely done, but all the structure basis has been well-develo
 ##Explanations
 
 The glide usage is because another kind of framework to deal with images isn't as instable as glide. 
+
 ![comparison](https://user-images.githubusercontent.com/66300473/197620419-4802deaa-140a-4d1b-8db3-dc124a20056b.png)
+
 The observable (RxJava) to deal with asynchronous data it's because probably the Sicredi project works with it, so, makes sense to apply this inside of the project.
+
 MVVM has been the architecture because is the main and recommended by google to be used in android projects and can offer the hold of data at ViewModel that helps to never lose the information during the UI states.
 
 ## Development Roadmap
