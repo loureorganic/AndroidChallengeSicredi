@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ntconsultchallengeandroid.R
 import com.example.ntconsultchallengeandroid.databinding.ActivityItemBinding
 import com.example.ntconsultchallengeandroid.model.EventsListItem
-import org.koin.android.ext.android.inject
 
 class ItemActivity : AppCompatActivity() {
 
     private lateinit var value: EventsListItem
     private lateinit var binding: ActivityItemBinding
-    private val glide by inject<ImageLoader>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

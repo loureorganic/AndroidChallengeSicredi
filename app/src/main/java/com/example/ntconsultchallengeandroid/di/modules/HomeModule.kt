@@ -1,6 +1,6 @@
 package com.example.ntconsultchallengeandroid.di.modules
 
-import com.example.ntconsultchallengeandroid.screens.home.ui.RecyclerViewAdapter
+import com.example.ntconsultchallengeandroid.screens.home.ui.adapters.RecyclerViewAdapter
 import com.example.ntconsultchallengeandroid.screens.home.repository.HomeRepository
 import com.example.ntconsultchallengeandroid.screens.home.repository.RepositoryHome
 import com.example.ntconsultchallengeandroid.screens.home.services.HomeServices

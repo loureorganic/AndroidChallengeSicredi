@@ -5,13 +5,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ntconsultchallengeandroid.R
 import com.example.ntconsultchallengeandroid.databinding.ActivityHomeBinding
 import com.example.ntconsultchallengeandroid.model.EventsListItem
+import com.example.ntconsultchallengeandroid.screens.home.ui.adapters.RecyclerViewAdapter
 import com.example.ntconsultchallengeandroid.screens.home.viewmodel.ViewModelHome
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import retrofit2.HttpException
 
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private val homeViewModel by inject<ViewModelHome>()
@@ -31,8 +34,6 @@ class HomeActivity : AppCompatActivity(){
         setContentView(binding.root)
         setRecyclerView()
         getList()
-
-
         onClickItem()
     }
 
@@ -52,11 +53,25 @@ class HomeActivity : AppCompatActivity(){
 
     private fun getList() {
         homeViewModel.getEventsList()
-        homeViewModel.mutableEventList.observe(this) { result ->
-            recyclerViewAdapter.setDataList(result)
-            mutableEventList.postValue(result)
-            recyclerViewAdapter.notifyDataSetChanged()
+        homeViewModel.mutableEventListState.observe(this) { state ->
+            when(state) {
+                is State.Success -> {
+                    homeViewModel.mutableEventList.observe(this) { result ->
+                        recyclerViewAdapter.setDataList(result)
+                        mutableEventList.postValue(result)
+                        recyclerViewAdapter.notifyDataSetChanged()
+                    }
+                }
+
+                is State.Error -> {
+                    val errorResponse = errorHandling.convertErrorBody(state.throwable as HttpException)
+                    val errorResponseMessage = errorResponse?.error?.message.toString()
+                    binding.errorText.text = getString(R.string.error_api, errorResponseMessage)
+                }
+            }
+
         }
+
     }
 
 }

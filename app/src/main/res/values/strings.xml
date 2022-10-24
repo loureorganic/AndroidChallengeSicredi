@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ntConsultChallengeAndroid</string>
     <string name="price_value">R$ %1$s</string>
+    <string name="error_api">Um erro ocorreu, desculpe, tente novamente mais tarde! Status: %1$s</string>
 </resources>

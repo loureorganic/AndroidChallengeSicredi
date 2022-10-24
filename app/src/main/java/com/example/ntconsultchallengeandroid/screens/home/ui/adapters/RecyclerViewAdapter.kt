@@ -1,4 +1,4 @@
-package com.example.ntconsultchallengeandroid.screens.home.ui
+package com.example.ntconsultchallengeandroid.screens.home.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
