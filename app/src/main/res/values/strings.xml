@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ntConsultChallengeAndroid</string>
+    <string name="price_value">R$ %1$s</string>
 </resources>

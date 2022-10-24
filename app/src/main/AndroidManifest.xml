@@ -17,8 +17,9 @@
         android:theme="@style/Theme.NtConsultChallengeAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.home.ui.ItemActivity"
             android:exported="false" />
+
         <activity
             android:name=".screens.home.ui.HomeActivity"
             android:exported="true">

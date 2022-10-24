@@ -1,8 +1,8 @@
 package com.example.ntconsultchallengeandroid.screens.home.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ntconsultchallengeandroid.databinding.ActivityHomeBinding
@@ -11,7 +11,7 @@ import com.example.ntconsultchallengeandroid.screens.home.viewmodel.ViewModelHom
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class HomeActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener{
+class HomeActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityHomeBinding
     private val homeViewModel by inject<ViewModelHome>()
@@ -22,22 +22,32 @@ class HomeActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
 
     private val _mutableEventList = MutableLiveData<List<EventsListItem>>()
-     val mutableEventList: MutableLiveData<List<EventsListItem>> = _mutableEventList
+    val mutableEventList: MutableLiveData<List<EventsListItem>> = _mutableEventList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.homeRecyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
-        binding.homeRecyclerView.adapter = recyclerViewAdapter
+        setRecyclerView()
         getList()
+
+
+        onClickItem()
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun onClickItem() {
+        recyclerViewAdapter.onItemClick = {
+            val intent = Intent(this, ItemActivity::class.java)
+            intent.putExtra("EVENT_ITEM_INFORMATION", it)
+            startActivity(intent)
+        }
+    }
 
+    private fun setRecyclerView() {
+        binding.homeRecyclerView.setHasFixedSize(true)
+        binding.homeRecyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
+        binding.homeRecyclerView.adapter = recyclerViewAdapter
     }
 
     private fun getList() {
@@ -47,11 +57,6 @@ class HomeActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             mutableEventList.postValue(result)
             recyclerViewAdapter.notifyDataSetChanged()
         }
-    }
-
-    override fun onItemClick(position: Int) {
-        Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT).show()
-
     }
 
 }

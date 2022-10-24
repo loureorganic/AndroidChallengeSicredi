@@ -8,8 +8,11 @@ import com.example.ntconsultchallengeandroid.R
 class ImageLoader {
 
     fun loaderImage(context: Context, imageData: String?, holderImage: ImageView) {
-        Glide.with(context).load(imageData)
+     Glide.with(context).load(imageData)
+            .error(R.drawable.placeholder)
             .placeholder(R.drawable.placeholder)
+            .fitCenter()
             .into(holderImage)
+
     }
 }

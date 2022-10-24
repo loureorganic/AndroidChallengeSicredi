@@ -24,6 +24,6 @@ val homeModule = module {
     }
 
     single {
-        RecyclerViewAdapter(get(), get())
+        RecyclerViewAdapter(get())
     }
 }

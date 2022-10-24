@@ -1,5 +1,6 @@
 package com.example.ntconsultchallengeandroid.screens.home.repository
 
+import com.example.ntconsultchallengeandroid.model.EventsListItem
 import com.example.ntconsultchallengeandroid.model.EventsListResponseModel
 import com.example.ntconsultchallengeandroid.repositories.network.api.request.ApiRequest
 import io.reactivex.Observable
@@ -8,7 +9,8 @@ import org.koin.core.component.inject
 import retrofit2.Response
 
 interface RepositoryHome {
-    fun getEventsList() : Observable<Response<EventsListResponseModel>>
+    fun getEventsList(): Observable<Response<EventsListResponseModel>>
+    fun getEventsItem(): Observable<Response<EventsListItem>>
 }
 
 class HomeRepository : KoinComponent, RepositoryHome {
@@ -18,5 +20,10 @@ class HomeRepository : KoinComponent, RepositoryHome {
     override fun getEventsList(): Observable<Response<EventsListResponseModel>> {
         return apiCall.getApiEventsList()
     }
+
+    override fun getEventsItem(): Observable<Response<EventsListItem>> {
+        TODO("Not yet implemented")
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.ntconsultchallengeandroid.repositories.network.api.request
 
+import com.example.ntconsultchallengeandroid.model.EventsListItem
 import com.example.ntconsultchallengeandroid.model.EventsListResponseModel
 import io.reactivex.Observable
 import retrofit2.Response
@@ -9,5 +10,8 @@ interface ApiRequest {
 
     @GET("api/events")
     fun getApiEventsList() : Observable<Response<EventsListResponseModel>>
+
+    @GET("api/events/{}")
+    fun getApiEventItem() : Observable<Response<EventsListItem>>
 
 }

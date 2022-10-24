@@ -9,15 +9,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ntconsultchallengeandroid.R
 import com.example.ntconsultchallengeandroid.model.EventsListItem
+import com.google.android.material.button.MaterialButton
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class RecyclerViewAdapter(var context: Context, private val listener: OnItemClickListener) :
+class RecyclerViewAdapter(var context: Context) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(),
     KoinComponent {
 
     private val glide by inject<ImageLoader>()
     private var dataList = emptyList<EventsListItem>()
+
+    var onItemClick:  ((EventsListItem) -> Unit)? = null
 
     internal fun setDataList(userImageList: List<EventsListItem>) {
         this.dataList = userImageList
@@ -37,31 +40,26 @@ class RecyclerViewAdapter(var context: Context, private val listener: OnItemClic
         holder.description.text = data.description
 
         glide.loaderImage(context = context, imageData = data.image, holderImage = holder.image)
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(data)
+        }
+        holder.buttonSeeMore.setOnClickListener {
+            onItemClick?.invoke(data)
+        }
+
+
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
         var image: ImageView = itemView.findViewById(R.id.image)
         var title: TextView = itemView.findViewById(R.id.cardItemTitle)
         var description: TextView = itemView.findViewById(R.id.cardItemDescription)
+        var buttonSeeMore : MaterialButton = itemView.findViewById(R.id.btnSeeMore)
 
-        init {
-            itemView.setOnClickListener(this)
-        }
 
-        override fun onClick(p0: View?) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
-            }
-        }
-
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
     }
 
 }
